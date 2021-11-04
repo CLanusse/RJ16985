@@ -1,0 +1,30 @@
+.header {
+    width: 100%;
+    background-color: lightblue;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+
+    h1 {
+        font-size: 42px;
+        font-weight: 700;
+    }
+
+    nav {
+        ul {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0;
+
+            li {
+                font-weight: 700;
+                text-transform: uppercase;
+                padding: 16px;
+                list-style: none;
+            }
+        }
+    }
+}
