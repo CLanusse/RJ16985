@@ -1,5 +1,4 @@
 import React from 'react'
-import { BsFillBasket2Fill } from 'react-icons/bs'
 import { FaCartPlus } from 'react-icons/fa'
 import './CartWidget.scss'
 
