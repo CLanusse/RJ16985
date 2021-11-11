@@ -1,16 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container } from 'react-bootstrap'
+import { pedirDatos } from '../../helpers/pedirDatos'
+import { ItemList } from '../ItemList/ItemList'
 
+export const ItemListContainer = () => {
 
+    const [loading, setLoading] = useState(false)
+    const [productos, setProductos] = useState([])
 
-export const ItemListContainer = ( {greeting} ) => {
+    useEffect(() => {
+        
+        setLoading(true)
+        pedirDatos()
+            .then( (resp) => {
+                setProductos(resp)
+            })
+            .catch( (error) => {
+                console.log(error)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
 
-
+    }, [])
 
     return (
-        <Container className="my-5">
-            <h2>{greeting}</h2>
-            <hr/>
-        </Container>
+        <>
+            {
+                loading 
+                    ? <h2>Cargando...</h2> 
+                    : <ItemList items={productos}/>
+            }
+        </>
     )
 }
