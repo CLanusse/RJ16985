@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
 import { pedirDatos } from '../../helpers/pedirDatos'
 import { ItemList } from '../ItemList/ItemList'
 
