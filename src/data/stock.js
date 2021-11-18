@@ -5,6 +5,7 @@ export const stock = [
         name: "Producto 1",
         desc: "Lorem ipsum",
         img: "https://via.placeholder.com/220",
+        category: 'zapatillas'
     },
     {
         id: 2,
@@ -12,6 +13,7 @@ export const stock = [
         name: "Producto 2",
         desc: "Lorem ipsum",
         img: "https://via.placeholder.com/220",
+        category: 'zapatillas'
     },
     {
         id: 3,
@@ -19,6 +21,7 @@ export const stock = [
         name: "Producto 3",
         desc: "Lorem ipsum",
         img: "https://via.placeholder.com/220",
+        category: 'remeras'
     },
     {
         id: 4,
@@ -26,6 +29,7 @@ export const stock = [
         name: "Producto 4",
         desc: "Lorem ipsum",
         img: "https://via.placeholder.com/220",
+        category: 'remeras'
     },
     {
         id: 5,
@@ -33,5 +37,6 @@ export const stock = [
         name: "Producto 5",
         desc: "Lorem ipsum",
         img: "https://via.placeholder.com/220",
+        category: 'buzos'
     },
 ]
