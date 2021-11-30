@@ -34,6 +34,8 @@ export const Formulario = () => {
                 type="text"
                 placeholder="nombre"
             />
+            {values.nombre.length < 4 && <small>Nombre inválido</small>}
+
             <input
                 onChange={handleInputChange}
                 name="apellido"
@@ -42,6 +44,8 @@ export const Formulario = () => {
                 type="text"
                 placeholder="apellido"
             />
+            {values.apellido.length < 4 && <small>Apellido inválido</small>}
+
             <input
                 onChange={handleInputChange}
                 name="email"
@@ -50,6 +54,7 @@ export const Formulario = () => {
                 type="email"
                 placeholder="email"
             />
+            {values.email.length < 4 && <small>Email inválido</small>}
 
             <button type="submit" className="btn btn-primary">Enviar</button>
         </form>

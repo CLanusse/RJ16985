@@ -18,7 +18,7 @@ export const NavBar = () => {
             </ul>
         </nav>
         
-        <Link to="cart"><CartWidget/></Link>
+        <CartWidget/>
         
     </header>
     )
