@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { CartContext } from '../../context/CartContext'
 import { ItemCount } from '../ItemCount/ItemCount'
 
-export const ItemDetail = ({id, name, img, desc, price, category, stock}) => {
+export const ItemDetail = ({id, name, img, desc, price, category, stock, oferta}) => {
 
     const {agregarAlCarrito, isInCart} = useContext(CartContext)
     
@@ -39,6 +39,8 @@ export const ItemDetail = ({id, name, img, desc, price, category, stock}) => {
             <img src={img} alt={name}/>
             <p>{desc}</p>
             <p>Precio: ${price}</p>
+            {oferta && <h3><strong>20% OFF</strong></h3>}
+
 
             {
                 !isInCart(id)
@@ -48,9 +50,9 @@ export const ItemDetail = ({id, name, img, desc, price, category, stock}) => {
                             setCantidad={setCantidad}
                             onAdd={handleAgregar}
                         />
-                    :   <Link to="/cart" className="btn btn-success d-block">Terminar mi compra</Link>
+                    :   <Link to="/cart" className="btn btn-success my-3">Terminar mi compra</Link>
             }
-
+            <br/>
             <button className="btn btn-primary" onClick={handleVolver}>Volver</button>
             <button className="btn btn-outline-primary" onClick={handleVolverInicio}>Volver al inicio</button>
         </div>
