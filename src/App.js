@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './router/AppRouter';
 import { CartProvider } from './context/CartContext';
 import { DarkModeProvider } from './context/DarkModeContext';
+import { PokeApi } from './ejemplos/PokeApi/PokeApi';
 
 function App() {
 

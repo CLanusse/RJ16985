@@ -1,27 +1,19 @@
 import React from 'react'
 import { btnConfig } from './btnConfig'
 
-export const ItemCount = ( {max, setCantidad, cantidad, onAdd} ) => {
+export const ItemCount = ( {sumar, restar, cantidad, onAdd, max} ) => {
 
-    const handleRestar = () => {
-        cantidad > 0 && setCantidad(cantidad - 1)
-    }
-
-    const handleSumar = () => {
-        cantidad < max && setCantidad(cantidad + 1)
-    }
-
-    const config = btnConfig(cantidad, max, handleSumar, handleRestar)
+    const config = btnConfig(cantidad, max)
 
     return (
         <div className="my-3">
-            <button {...config.restar}>
+            <button {...config.restar} onClick={restar}>
                 -
             </button>
 
             <span className="mx-2">{cantidad}</span>
 
-            <button {...config.sumar}>
+            <button {...config.sumar} onClick={sumar}>
                 +
             </button>
             <br/>
