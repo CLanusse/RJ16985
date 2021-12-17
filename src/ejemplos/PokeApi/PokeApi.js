@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useFetch } from '../../hooks/useFetch'
 
 // query = sting ; limit = number
 // const API_KEY = 123456
@@ -17,8 +18,8 @@ import React, { useEffect, useState } from 'react'
 
 export const PokeApi = () => {
 
-    const [pokemon, setPokemon] = useState(null)
     const [id, setId] = useState(1)
+    const {data: pokemon} = useFetch(`https://pokeapi.co/api/v2/pokemon/${id}`, [id])
 
     const handleAnterior = () => {
         id > 1 && setId( id - 1)
@@ -28,20 +29,6 @@ export const PokeApi = () => {
         setId( id + 1 )
     }
 
-    useEffect(() => {
-
-        fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setPokemon({
-                    name: data.name,
-                    img: data.sprites.front_default
-                })
-            })
-            .catch(err => console.log(err))
-
-    }, [id])
-
     return (
         <div className="container my-5">
             <h2>Poke Api</h2>
@@ -50,7 +37,7 @@ export const PokeApi = () => {
             { pokemon !== null && 
                 <>
                     <h3>{pokemon.name}</h3>
-                    <img src={pokemon.img} alt={pokemon.name}/>
+                    <img src={pokemon.sprites.front_default} alt={pokemon.name}/>
                 </>
             }
 

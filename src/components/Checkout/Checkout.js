@@ -1,9 +1,31 @@
 import React, { useContext, useState } from 'react'
 import { CartContext } from '../../context/CartContext'
 import { db } from '../../firebase/config'
-import { collection, getDocs, query, where, addDoc, documentId, Timestamp, doc, writeBatch } from 'firebase/firestore/lite'
-import { Link } from 'react-router-dom'
+import { collection, getDocs, query, where, addDoc, documentId, Timestamp, writeBatch } from 'firebase/firestore/lite'
+import { Link, Navigate } from 'react-router-dom'
 import { Loader } from '../Loader/Loader'
+import { Formik } from 'formik'
+import * as Yup from 'yup'
+
+const initialValues = {
+    nombre: "",
+    email: "",
+    tel: ''
+}
+
+const schema = Yup.object().shape({
+    nombre: Yup.string()
+            .required('Este campo es obligatorio')
+            .min(4, 'El nombre es demasiado corto')
+            .max(30, 'El nombre es demasiado largo'),
+    email: Yup.string()
+            .required('Este campo es obligatorio')
+            .email('Email inválido'),
+    tel: Yup.string()
+            .required('Este camp es obligatorio')
+            .min(8, 'El número no es válido')
+            .max(18, 'El número no es válido')
+})
 
 export const Checkout = () => {
 
@@ -11,36 +33,9 @@ export const Checkout = () => {
     const [orderId, setOrderId] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    const [values, setValues] = useState({
-        nombre: "",
-        email: "",
-        tel: ''
-    })
     
-    const handleInputChange = (e) => {
 
-        setValues({
-            ...values,
-            [e.target.name]: e.target.value
-        })
-    }
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
-        if (values.nombre.length < 4) {
-            alert("Nombre inválido")
-            return
-        }
-        if (values.email.length < 6) {
-            alert("Email inválido")
-            return
-        }
-        if (values.tel.length < 8) {
-            alert("Teléfono inválido")
-            return
-        }
+    const handleSubmit = (values) => {
 
         const order = {
             buyer: values,
@@ -87,6 +82,10 @@ export const Checkout = () => {
             })
     }
 
+    if (carrito.length === 0) {
+        return <Navigate to="/"/>
+    }
+
     if (loading) {
         return <Loader/>
     }
@@ -107,34 +106,49 @@ export const Checkout = () => {
                     <h2>Checkout</h2>
                     <hr/>
 
-                    <form onSubmit={handleSubmit}>
-                        <input
-                            name="nombre"
-                            onChange={handleInputChange}
-                            value={values.nombre}
-                            className='form-control my-2'
-                            type="text"
-                            placeholder="Nombre"
-                        />
-                        <input
-                            name='email'
-                            onChange={handleInputChange}
-                            value={values.email}
-                            className='form-control my-2'
-                            type="email"
-                            placeholder="Email"
-                        />
-                        <input
-                            name='tel'
-                            onChange={handleInputChange}
-                            value={values.tel}
-                            className='form-control my-2'
-                            type="tel"
-                            placeholder="Teléfono"
-                        />
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={schema}
+                        onSubmit={handleSubmit}
+                    >
+                        {(formik) => (
+                            <form onSubmit={formik.handleSubmit}>
+                                <input
+                                    name="nombre"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.nombre}
+                                    className='form-control my-2'
+                                    type="text"
+                                    placeholder="Nombre"
+                                />
+                                {formik.errors.nombre && <p className='alert alert-danger'>{formik.errors.nombre}</p>}
 
-                        <button type='submit' className='btn btn-success'>Enviar</button>
-                    </form>
+                                <input
+                                    name='email'
+                                    onChange={formik.handleChange}
+                                    value={formik.values.email}
+                                    className='form-control my-2'
+                                    type="email"
+                                    placeholder="Email"
+                                />
+                                {formik.errors.email && <p className='alert alert-danger'>{formik.errors.email}</p>}
+
+                                <input
+                                    name='tel'
+                                    onChange={formik.handleChange}
+                                    value={formik.values.tel}
+                                    className='form-control my-2'
+                                    type="tel"
+                                    placeholder="Teléfono"
+                                />
+                                {formik.errors.tel && <p className='alert alert-danger'>{formik.errors.tel}</p>}
+
+                                <button type='submit' className='btn btn-success'>Enviar</button>
+                            </form>
+                        )}
+                    </Formik>
+
+                    
                 </>
             }
         </div>
